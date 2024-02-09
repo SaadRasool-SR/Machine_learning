@@ -18,7 +18,11 @@ pd.reset_option('display.max_rows', None)
 pd.reset_option('display.max_columns', None)
 
 # importing data
-Breast_Cancer_dataset = pd.read_csv('/home/srasool/Documents/Machine_learning/Assignment_1/breast-cancer.csv')
+Breast_Cancer_dataset = pd.read_csv('') # breast cancer
+heart_dataset_test = pd.read_csv('') # heart test
+heart_dataset_train = pd.read_csv('') # heart train
+
+
 
 # EDA 
 Breast_Cancer_dataset['diagnosis'] = (Breast_Cancer_dataset['diagnosis'] =='M').astype(int)
@@ -224,8 +228,8 @@ fig.show()
 
 
 # dataset 2
-heart_dataset_test = pd.read_csv('/home/srasool/Documents/Machine_learning/Assignment_1/heart_test.csv')
-heart_dataset_train = pd.read_csv('/home/srasool/Documents/Machine_learning/Assignment_1/heart_train.csv')
+#heart_dataset_test = pd.read_csv('/home/srasool/Documents/Machine_learning/Assignment_1/heart_test.csv')
+#heart_dataset_train = pd.read_csv('/home/srasool/Documents/Machine_learning/Assignment_1/heart_train.csv')
 heart_dataset = pd.concat([heart_dataset_train, heart_dataset_test], axis=0)
 
 
