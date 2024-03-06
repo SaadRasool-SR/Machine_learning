@@ -70,94 +70,6 @@ X_test = torch.tensor(X_test,dtype=torch.float32)
 y_train = torch.tensor(y_train.to_numpy(),dtype=torch.float32).reshape(-1,1)
 y_test = torch.tensor(y_test.to_numpy(),dtype=torch.float32).reshape(-1,1)
 
-# max_iteration = list(range(250))
-
-# train_accuracy = []
-# test_accuracy = []
-
-# #for i in max_iteration:
-
-#     # Initialize neural network object and fit object
-
-
-# og_model = mlrose.NeuralNetwork(hidden_nodes = [11,8,64,1], activation = 'relu', \
-#                                 algorithm = 'gradient_descent', max_iters = 10000, \
-#                                 bias = True, is_classifier = True, learning_rate = 0.00001, \
-#                                 early_stopping = True,curve=True, max_attempts = 10000, \
-#                                 random_state = random_seed)
-
-
-
-# og_model  = og_model.fit(X_train,y_train)
-
-# print('gradient_descent')
-
-# rhc_model = mlrose.NeuralNetwork(hidden_nodes = [11,8,64,1], activation = 'relu', \
-#                                 algorithm = 'random_hill_climb', max_iters = 10000, \
-#                                 bias = True, is_classifier = True, learning_rate = 0.00001, \
-#                                 early_stopping = True,curve=True, max_attempts = 100, \
-#                                 random_state = random_seed)
-
-# rhc_model  = rhc_model.fit(X_train,y_train)
-# fig = go.Figure()
-
-# fig.add_trace(go.Scatter(x=list(range(len(rhc_model.fitness_curve))), y=rhc_model.fitness_curve,
-#                     mode='lines',
-#                     name='Random_Hill_Climb'))
-
-# fig.update_layout(title='Fitness Curves')
-# fig.update_xaxes(title = 'Number of Training Iterations')
-# fig.update_yaxes(title = 'Fitness')
-# fig.show()
-# fig.write_image('/home/srasool/Documents/Machine_learning/Assignment_2/images/Fitness_nn_ro.png')
-
-# print('done-random_hill_climb')
-
-# sa_model = mlrose.NeuralNetwork(hidden_nodes = [11,8,64,1], activation = 'relu', \
-#                                 algorithm = 'simulated_annealing', max_iters = 10000, \
-#                                 bias = True, is_classifier = True, learning_rate = 0.00001, \
-#                                 early_stopping = True,curve=True, max_attempts = 10000, \
-#                                 random_state = random_seed)
-
-# sa_model  = sa_model.fit(X_train,y_train)
-# print('done-simulated_annealing')
-
-# gen_model = mlrose.NeuralNetwork(hidden_nodes = [11,8,64,1], activation = 'relu', \
-#                                 algorithm = 'genetic_alg', max_iters = 100, \
-#                                 bias = True, is_classifier = True, learning_rate = 0.00001, \
-#                                 early_stopping = True,curve=True, max_attempts = 100, \
-#                                 random_state = random_seed,pop_size=500, mutation_prob=0.2)
-
-# gen_model  = gen_model.fit(X_train,y_train)
-# print('done-genetic_alg')
-
-
-
-# fig = go.Figure()
-# # Add traces
-# # fig.add_trace(go.Scatter(x=list(range(len(og_model.fitness_curve))), y=og_model.fitness_curve,
-# #                     mode='lines',
-# #                     name='Gradient_Descent'))
-
-# fig.add_trace(go.Scatter(x=list(range(len(rhc_model.fitness_curve))), y=rhc_model.fitness_curve,
-#                     mode='lines',
-#                     name='Random_Hill_Climb'))
-
-# fig.add_trace(go.Scatter(x=list(range(len(sa_model.fitness_curve))), y=sa_model.fitness_curve,
-#                     mode='lines',
-#                     name='Simulated_Annealing'))
-
-# fig.add_trace(go.Scatter(x=list(range(len(gen_model.fitness_curve))), y=gen_model.fitness_curve,
-#                     mode='lines',
-#                     name='Genetic_Alg'))
-
-# fig.update_layout(title='Fitness Curves')
-# fig.update_xaxes(title = 'Number of Training Iterations')
-# fig.update_yaxes(title = 'Fitness')
-# fig.show()
-# fig.write_image('/home/srasool/Documents/Machine_learning/Assignment_2/images/Fitness_nn_ro.png')
-
-########################################################## F1 Score
 
 iter= 500
 
@@ -211,7 +123,7 @@ for i in max_iteration:
 
     print('done-random_hill_climb')
 
-    schedule = mlrose.GeomDecay(init_temp=5, decay=0.75, min_temp=0.001)
+    schedule = mlrose.GeomDecay(init_temp=15, decay=0.5, min_temp=0.001)
 
     sa_model = mlrose.NeuralNetwork(hidden_nodes = [11,8,64,1], activation = 'relu', \
                                     algorithm = 'simulated_annealing',schedule=schedule, max_iters = i, \
@@ -230,7 +142,7 @@ for i in max_iteration:
                                     algorithm = 'genetic_alg', max_iters = i, \
                                     bias = False, is_classifier = True, learning_rate = 0.1, \
                                     early_stopping = True,curve=True, max_attempts = 1000, \
-                                    random_state = random_seed,pop_size=150, mutation_prob=0.4)
+                                    random_state = random_seed,pop_size=200, mutation_prob=0.4)
 
     gen_model  = gen_model.fit(X_train,y_train)
     y_test_predict = gen_model.predict(X_test)
@@ -238,6 +150,7 @@ for i in max_iteration:
     test_accuracy_gen_a.append(accuracy_score(y_test,y_test_predict))
     f1_score_test_gen_a.append(f1)
     print('done-genetic_alg')
+
 
 
     print(i)
@@ -268,7 +181,7 @@ fig.update_xaxes(title = 'Number of Iterations')
 fig.update_yaxes(title = 'Accuracy')
 fig.show()
 
-fig.write_image('/home/srasool/Documents/Machine_learning/Assignment_2/images/accuracy_nn_ro.png')
+#fig.write_image('/home/srasool/Documents/Machine_learning/Assignment_2/images/accuracy_nn_ro.png')
 
 
 
@@ -296,7 +209,7 @@ fig.update_xaxes(title = 'Number of Iterations')
 fig.update_yaxes(title = 'F1 Score')
 fig.show()
 
-fig.write_image('/home/srasool/Documents/Machine_learning/Assignment_2/images/F1_nn_ro.png')
+#fig.write_image('/home/srasool/Documents/Machine_learning/Assignment_2/images/F1_nn_ro.png')
 
 
 
