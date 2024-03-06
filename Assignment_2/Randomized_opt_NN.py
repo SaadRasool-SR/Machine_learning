@@ -151,9 +151,7 @@ for i in max_iteration:
     f1_score_test_gen_a.append(f1)
     print('done-genetic_alg')
 
-
-
-    print(i)
+    #print(i)
 
 # plot
 
@@ -183,8 +181,6 @@ fig.show()
 
 #fig.write_image('/home/srasool/Documents/Machine_learning/Assignment_2/images/accuracy_nn_ro.png')
 
-
-
 fig = go.Figure()
 # Add traces
 fig.add_trace(go.Scatter(x=list(range(iter)), y=f1_score_test_gd,
@@ -208,14 +204,3 @@ fig.update_layout(title='F1 Score - Testing')
 fig.update_xaxes(title = 'Number of Iterations')
 fig.update_yaxes(title = 'F1 Score')
 fig.show()
-
-#fig.write_image('/home/srasool/Documents/Machine_learning/Assignment_2/images/F1_nn_ro.png')
-
-
-
-
-print('completed')
-
-
-
-
